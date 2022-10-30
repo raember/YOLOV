@@ -1,0 +1,40 @@
+# Multi-stage Dockerfile
+####
+# builder stage
+FROM python:3.7-slim-bullseye AS builder
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends build-essential
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN python3.7 -m venv /home/phdenzel/venv
+ENV PATH="/home/phdenzel/venv/bin:$PATH"
+
+COPY requirements.txt .
+RUN pip3 install --no-cache-dir --upgrade pip setuptools wheel
+RUN pip3 install --no-cache-dir -r requirements.txt
+
+####
+# runner stage
+FROM python:3.7-slim-bullseye AS runner
+
+RUN apt-get update
+# RUN apt-get install -y --no-install-recommends 
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN useradd --create-home phdenzel
+COPY --chown=phdenzel:phdenzel --from=builder /home/phdenzel/venv /home/phdenzel/venv
+
+USER phdenzel
+RUN mkdir /home/phdenzel/yolov
+WORKDIR /home/phdenzel/yolov
+COPY --chown=phdenzel:phdenzel . .
+
+ENV PYTHONUNBUFFERED=1
+
+ENV VIRTUAL_ENV=/home/phdenzel/venv
+ENV PATH="/home/phdenzel/venv/bin:$PATH"
+
+RUN pip3 install -e .

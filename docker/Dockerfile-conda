@@ -1,0 +1,22 @@
+FROM --platform=amd64 continuumio/miniconda3
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update
+# RUN apt-get install -y --no-install-recommends build-essential
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN conda update conda
+
+RUN conda create -n yolov python=3.7
+COPY requirements.txt .
+SHELL ["conda", "run", "-n", "yolov", "/bin/bash", "-c"]
+# RUN pip install --no-cache-dir --upgrade pip setuptools wheel
+RUN pip install --no-cache-dir -r requirements.txt
+
+RUN useradd --create-home phdenzel
+USER phdenzel
+RUN mkdir /home/phdenzel/yolov
+WORKDIR /home/phdenzel/yolov
+COPY --chown=phdenzel:phdenzel . .
+
+RUN pip3 install -v -e .
