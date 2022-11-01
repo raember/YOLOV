@@ -12,10 +12,12 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 RUN python3.7 -m venv /home/phdenzel/venv
 ENV PATH="/home/phdenzel/venv/bin:$PATH"
 
-COPY requirements.txt .
+COPY . .
 RUN pip3 install --no-cache-dir --upgrade pip setuptools wheel
 RUN pip3 install --no-cache-dir numpy==1.21.6
 RUN pip3 install --no-cache-dir -r requirements.txt
+RUN pip3 install -e .
+
 
 ####
 # runner stage
@@ -31,11 +33,9 @@ COPY --chown=phdenzel:phdenzel --from=builder /home/phdenzel/venv /home/phdenzel
 USER phdenzel
 RUN mkdir /home/phdenzel/yolov
 WORKDIR /home/phdenzel/yolov
-COPY --chown=phdenzel:phdenzel . .
+# COPY --chown=phdenzel:phdenzel . .
 
 ENV PYTHONUNBUFFERED=1
 
 ENV VIRTUAL_ENV=/home/phdenzel/venv
 ENV PATH="/home/phdenzel/venv/bin:$PATH"
-
-RUN pip3 install -e .
