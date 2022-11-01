@@ -13,9 +13,9 @@ build: Dockerfile
 .PHONY: container
 container: build
 	docker run -it --name $(DOCKER_BUILDNAME) --rm \
-		--volume $(pwd):/home/phdenzel/yolov \
+		--volume $(shell pwd):/home/phdenzel/yolov \
 		--net=host $(DOCKER_BUILDNAME) \
-		sh
+		bash
 
 .PHONY: clean
 clean:
