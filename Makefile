@@ -11,7 +11,7 @@ build: Dockerfile
 	docker build -t $(DOCKER_BUILDNAME) .
 
 .PHONY: container
-container: build
+container:
 	docker run -it --name $(DOCKER_BUILDNAME) --rm \
 		--volume $(shell pwd):/home/phdenzel/yolov \
 		--net=host $(DOCKER_BUILDNAME) \
