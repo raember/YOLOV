@@ -16,7 +16,7 @@ from yolox.core.vid_trainer import Trainer
 from yolox.exp import get_exp
 from yolox.utils import configure_nccl, configure_omp, get_num_devices
 from yolox.data.data_augment import ValTransform,Vid_Val_Transform
-from yolox.data.datasets import vid
+from yolox.data.datasets import vid, coco
 import os
 def make_parser():
     parser = argparse.ArgumentParser("YOLOX train parser")
@@ -113,9 +113,11 @@ def main(exp, args):
     cudnn.benchmark = True
     lframe = int(args.lframe)
     gframe = int(args.gframe)
-    dataset_val = vid.VIDDataset(file_path='./yolox/data/datasets/val_seq.npy',
-                                 img_size=(args.tsize, args.tsize), preproc=Vid_Val_Transform(), lframe=lframe,
-                                 gframe=gframe, val=True,dataset_pth=exp.data_dir)
+    # dataset_val = coco.COCODataset(data_dir='../datasets/autodidactV/val', json_file='vid_val_coco.json', name='val', preproc=Vid_Val_Transform())
+    dataset_val = vid.OVIS(data_dir='../datasets/autodidactV', preproc=Vid_Val_Transform(), lframe=lframe, gframe=gframe, val=True, COCO_anno='annotations/vid_val_coco.json')
+    # dataset_val = vid.VIDDataset(file_path='./yolox/data/datasets/val_seq.npy',
+    #                              img_size=(args.tsize, args.tsize), preproc=Vid_Val_Transform(), lframe=lframe,
+    #                              gframe=gframe, val=True,dataset_pth=exp.data_dir)
     val_loader = vid.get_vid_loader(batch_size=lframe + gframe, data_num_workers=1, dataset=dataset_val, )
     trainer = Trainer(exp, args,val_loader,val=False)
     trainer.train()

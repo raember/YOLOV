@@ -24,14 +24,7 @@ from yolox.utils import (
     xyxy2xywh
 )
 vid_classes = (
-                'airplane', 'antelope', 'bear', 'bicycle',
-                'bird', 'bus', 'car', 'cattle',
-                'dog', 'domestic_cat', 'elephant', 'fox',
-                'giant_panda', 'hamster', 'horse', 'lion',
-                'lizard', 'monkey', 'motorcycle', 'rabbit',
-                'red_panda', 'sheep', 'snake', 'squirrel',
-                'tiger', 'train', 'turtle', 'watercraft',
-                'whale', 'zebra'
+                'bed', 'staff', 'devices', 'patient'
 )
 #from yolox.data.datasets.vid_classes import Arg_classes as  vid_classes
 
@@ -70,7 +63,12 @@ class VIDEvaluator:
                 'description': 'nothing',
             },
             'annotations': [],
-            'categories': [{"supercategorie": "", "id": 0, "name": "airplane"}, {"supercategorie": "", "id": 1, "name": "antelope"}, {"supercategorie": "", "id": 2, "name": "bear"}, {"supercategorie": "", "id": 3, "name": "bicycle"}, {"supercategorie": "", "id": 4, "name": "bird"}, {"supercategorie": "", "id": 5, "name": "bus"}, {"supercategorie": "", "id": 6, "name": "car"}, {"supercategorie": "", "id": 7, "name": "cattle"}, {"supercategorie": "", "id": 8, "name": "dog"}, {"supercategorie": "", "id": 9, "name": "domestic_cat"}, {"supercategorie": "", "id": 10, "name": "elephant"}, {"supercategorie": "", "id": 11, "name": "fox"}, {"supercategorie": "", "id": 12, "name": "giant_panda"}, {"supercategorie": "", "id": 13, "name": "hamster"}, {"supercategorie": "", "id": 14, "name": "horse"}, {"supercategorie": "", "id": 15, "name": "lion"}, {"supercategorie": "", "id": 16, "name": "lizard"}, {"supercategorie": "", "id": 17, "name": "monkey"}, {"supercategorie": "", "id": 18, "name": "motorcycle"}, {"supercategorie": "", "id": 19, "name": "rabbit"}, {"supercategorie": "", "id": 20, "name": "red_panda"}, {"supercategorie": "", "id": 21, "name": "sheep"}, {"supercategorie": "", "id": 22, "name": "snake"}, {"supercategorie": "", "id": 23, "name": "squirrel"}, {"supercategorie": "", "id": 24, "name": "tiger"}, {"supercategorie": "", "id": 25, "name": "train"}, {"supercategorie": "", "id": 26, "name": "turtle"}, {"supercategorie": "", "id": 27, "name": "watercraft"}, {"supercategorie": "", "id": 28, "name": "whale"}, {"supercategorie": "", "id": 29, "name": "zebra"}],
+            'categories': [
+                {"supercategorie": "", "id": 0, "name": "bed"},
+                {"supercategorie": "", "id": 1, "name": "staff"},
+                {"supercategorie": "", "id": 2, "name": "devices"},
+                {"supercategorie": "", "id": 3, "name": "patient"},
+            ],
             'images': [],
             'licenses': []
         }
@@ -79,7 +77,12 @@ class VIDEvaluator:
                 'description': 'nothing',
             },
             'annotations': [],
-            'categories': [{"supercategorie": "", "id": 0, "name": "airplane"}, {"supercategorie": "", "id": 1, "name": "antelope"}, {"supercategorie": "", "id": 2, "name": "bear"}, {"supercategorie": "", "id": 3, "name": "bicycle"}, {"supercategorie": "", "id": 4, "name": "bird"}, {"supercategorie": "", "id": 5, "name": "bus"}, {"supercategorie": "", "id": 6, "name": "car"}, {"supercategorie": "", "id": 7, "name": "cattle"}, {"supercategorie": "", "id": 8, "name": "dog"}, {"supercategorie": "", "id": 9, "name": "domestic_cat"}, {"supercategorie": "", "id": 10, "name": "elephant"}, {"supercategorie": "", "id": 11, "name": "fox"}, {"supercategorie": "", "id": 12, "name": "giant_panda"}, {"supercategorie": "", "id": 13, "name": "hamster"}, {"supercategorie": "", "id": 14, "name": "horse"}, {"supercategorie": "", "id": 15, "name": "lion"}, {"supercategorie": "", "id": 16, "name": "lizard"}, {"supercategorie": "", "id": 17, "name": "monkey"}, {"supercategorie": "", "id": 18, "name": "motorcycle"}, {"supercategorie": "", "id": 19, "name": "rabbit"}, {"supercategorie": "", "id": 20, "name": "red_panda"}, {"supercategorie": "", "id": 21, "name": "sheep"}, {"supercategorie": "", "id": 22, "name": "snake"}, {"supercategorie": "", "id": 23, "name": "squirrel"}, {"supercategorie": "", "id": 24, "name": "tiger"}, {"supercategorie": "", "id": 25, "name": "train"}, {"supercategorie": "", "id": 26, "name": "turtle"}, {"supercategorie": "", "id": 27, "name": "watercraft"}, {"supercategorie": "", "id": 28, "name": "whale"}, {"supercategorie": "", "id": 29, "name": "zebra"}],
+            'categories': [
+                {"supercategorie": "", "id": 0, "name": "bed"},
+                {"supercategorie": "", "id": 1, "name": "staff"},
+                {"supercategorie": "", "id": 2, "name": "devices"},
+                {"supercategorie": "", "id": 3, "name": "patient"},
+            ],
             'images': [],
             'licenses': []
         }

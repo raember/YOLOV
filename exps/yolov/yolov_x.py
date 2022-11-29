@@ -15,7 +15,7 @@ class Exp(MyExp):
 
         # Define yourself dataset path
 
-        self.num_classes = 30
+        self.num_classes = 4
         self.data_dir = "" #path to your dataset
 
 

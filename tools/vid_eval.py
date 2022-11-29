@@ -124,9 +124,10 @@ def main(exp, args):
     lframe = int(args.lframe)
     gframe = int(args.gframe)
 
-    dataset_val = vid.VIDDataset(file_path='./yolox/data/datasets/val_seq.npy',
-                                 img_size=(args.tsize, args.tsize), preproc=Vid_Val_Transform(), lframe=lframe,
-                                 gframe=gframe, val=True,mode=args.mode,dataset_pth=exp.data_dir,tnum=int(args.tnum))
+    dataset_val = vid.OVIS(data_dir='../datasets/autodidactV', preproc=Vid_Val_Transform(), lframe=lframe, gframe=gframe, val=True, COCO_anno='annotations/vid_val_coco.json')
+    # dataset_val = vid.VIDDataset(file_path='./yolox/data/datasets/val_seq.npy',
+    #                              img_size=(args.tsize, args.tsize), preproc=Vid_Val_Transform(), lframe=lframe,
+    #                              gframe=gframe, val=True,mode=args.mode,dataset_pth=exp.data_dir,tnum=int(args.tnum))
     val_loader = vid.get_vid_loader(batch_size=lframe + gframe, data_num_workers=4, dataset=dataset_val,)
 
     trainer = Trainer(exp, args,val_loader,val=True)

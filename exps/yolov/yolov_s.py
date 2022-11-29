@@ -15,7 +15,7 @@ class Exp(MyExp):
 
         # Define yourself dataset path
 
-        self.num_classes = 30
+        self.num_classes = 4
         self.data_dir = ""
         self.max_epoch = 7
         self.no_aug_epochs = 2
@@ -120,15 +120,20 @@ class Exp(MyExp):
         from yolox.data import TrainTransform
         from yolox.data.datasets.mosaicdetection import MosaicDetection_VID
 
-        dataset = vid.VIDDataset(file_path='./yolox/data/datasets/train_seq.npy',
-                                 img_size=self.input_size,
-                                 preproc=TrainTransform(
+        dataset = vid.OVIS(data_dir='../datasets/autodidactV', img_size=self.input_size, preproc=TrainTransform(
                                      max_labels=50,
                                      flip_prob=self.flip_prob,
-                                     hsv_prob=self.hsv_prob),
-                                 lframe=0,  # batch_size,
-                                 gframe=batch_size,
-                                 dataset_pth=self.data_dir)
+                                     hsv_prob=self.hsv_prob), lframe=0,
+                               gframe=batch_size, COCO_anno='annotations/vid_train_coco.json', name='train')
+        # dataset = vid.VIDDataset(file_path='./yolox/data/datasets/train_seq.npy',
+        #                          img_size=self.input_size,
+        #                          preproc=TrainTransform(
+        #                              max_labels=50,
+        #                              flip_prob=self.flip_prob,
+        #                              hsv_prob=self.hsv_prob),
+        #                          lframe=0,  # batch_size,
+        #                          gframe=batch_size,
+        #                          dataset_pth=self.data_dir)
 
 
         dataset = vid.get_trans_loader(batch_size=batch_size, data_num_workers=4, dataset=dataset)

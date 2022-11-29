@@ -19,7 +19,7 @@ from yolox.utils import xyxy2cxcywh
 
 IMAGE_EXT = [".jpg", ".jpeg", ".webp", ".bmp", ".png",".JPEG"]
 XML_EXT = [".xml"]
-name_list = ['n02691156','n02419796','n02131653','n02834778','n01503061','n02924116','n02958343','n02402425','n02084071','n02121808','n02503517','n02118333','n02510455','n02342885','n02374451','n02129165','n01674464','n02484322','n03790512','n02324045','n02509815','n02411705','n01726692','n02355227','n02129604','n04468005','n01662784','n04530566','n02062744','n02391049']
+name_list = ['Bed', 'Staff', 'Devices', 'Patient']
 numlist = range(30)
 name_num = dict(zip(name_list,numlist))
 
@@ -228,6 +228,7 @@ class Arg_VID(torchDataset):
             preproc: data augmentation strategy
         """
         super().__init__()
+        from yolox.data.datasets.coco import COCO, remove_useless_info
         self.input_dim = img_size
         self.name = name
         self.val = val
@@ -236,7 +237,7 @@ class Arg_VID(torchDataset):
         self.coco_anno_path = COCO_anno
         self.name_id_dic = self.get_NameId_dic()
         self.coco = COCO(COCO_anno)
-        remove_useless_info(self.coco)
+        #remove_useless_info(self.coco)
         self.ids = sorted(self.coco.getImgIds())
         self.class_ids = sorted(self.coco.getCatIds())
         cats = self.coco.loadCats(self.coco.getCatIds())
@@ -248,6 +249,7 @@ class Arg_VID(torchDataset):
         self.res = self.photo_to_sequence(lframe,gframe)
 
     def get_NameId_dic(self):
+        import json
         img_dic = {}
         with open(self.coco_anno_path,'r') as train_anno_content:
             train_anno_content = json.load(train_anno_content)
@@ -309,6 +311,7 @@ class Arg_VID(torchDataset):
         Returns:
             split result
         '''
+        import json
         res = []
 
         with open(self.coco_anno_path, 'r') as anno:
@@ -417,7 +420,7 @@ class OVIS(Arg_VID):
         width = im_ann["width"]
         height = im_ann["height"]
         #im_ann['name'] = self.coco.dataset['seq_dirs'][im_ann['sid']] + '/' + im_ann['name']
-        anno_ids = self.coco.getAnnIds(imgIds=[int(id_)], iscrowd=False)
+        anno_ids = self.coco.getAnnIds(imgIds=[int(id_)])
         annotations = self.coco.loadAnns(anno_ids)
         objs = []
         for obj in annotations:
@@ -460,6 +463,7 @@ class OVIS(Arg_VID):
         Returns:
             split result
         '''
+        import json
         res = []
 
         with open(self.coco_anno_path, 'r') as anno:
